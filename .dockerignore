@@ -1,0 +1,26 @@
+# Environment
+
+venv
+.venv
+env
+ENV
+env.bak
+venv.bak
+
+# Git
+
+.git
+.gitignore
+
+# Unused files
+
+README.md
+Dockerfile
+docker-compose.yml
+socialnetwork/.env.example
+
+# Byte-compiled / optimized / DLL files
+
+__pycache__/
+*.py[cod]
+*$py.class
