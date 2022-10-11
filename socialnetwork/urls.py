@@ -22,8 +22,7 @@ from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
 )
-
-from rest_framework_simplejwt import views as jwt_views
+from django_prometheus import exports as prometheus_exports
 
 from api.router import urlpatterns as api_urlpatterns
 
@@ -43,5 +42,8 @@ urlpatterns = [
 
     # API
     path("api/", include(api_urlpatterns)),
+
+    # Prometheus Metrics
+    path("metrics/", prometheus_exports.ExportToDjangoView, name="prometheus-metrics"),
 
 ]

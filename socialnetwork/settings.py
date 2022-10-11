@@ -46,11 +46,13 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'drf_yasg',
     'drf_spectacular',
+    'django_prometheus',
     'domain',
     'api',
 ]
 
 MIDDLEWARE = [
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'api.auth.middleware.SetLastRequestTimeMiddleware',
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 REST_FRAMEWORK = {
@@ -97,7 +100,9 @@ WSGI_APPLICATION = 'socialnetwork.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django_prometheus.db.backends.postgresql'
+        if env.bool('MONITOR_DB', default=False)
+        else 'django.db.backends.postgresql_psycopg2',
         'NAME': env.str('DB_NAME'),
         'USER': env.str('DB_USER'),
         'PASSWORD': env.str('DB_PWD'),

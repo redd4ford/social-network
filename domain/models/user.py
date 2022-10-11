@@ -6,12 +6,14 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.utils import timezone
+from django_prometheus.models import ExportModelOperationsMixin
 
 from domain.services.user import DomainUserService
 from domain.core.models import BasePKModel
 
 
-class User(BasePKModel, AbstractBaseUser, PermissionsMixin):
+class User(ExportModelOperationsMixin('user'), BasePKModel,
+           AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=255, unique=True)
     email = models.EmailField(db_index=True, unique=True)
     first_name = models.CharField(max_length=64)

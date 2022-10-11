@@ -11,7 +11,7 @@ services:
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
     ports:
-      - "5434:5434"
+      - "5432:5432"
     volumes:
       - postgres-volume:/data/db
 
@@ -36,5 +36,35 @@ services:
       - "8000"
     stdin_open: true
 
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:v2.14.0
+    restart: unless-stopped
+    depends_on:
+      - django_app
+    links:
+      - django_app
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./infrastructure/prometheus/:/etc/prometheus/
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:7.5.7
+    restart: unless-stopped
+    env_file:
+      - socialnetwork/.env
+    depends_on:
+      - prometheus
+    links:
+      - prometheus
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./infrastructure/grafana/provisioning/:/etc/grafana/provisioning/
+      - grafana-volume:/var/lib/grafana
+
 volumes:
   postgres-volume:
+  grafana-volume:
