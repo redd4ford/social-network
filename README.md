@@ -1,6 +1,6 @@
 # social-network
 
-This project was developed with: Python 3.8, Django 4.0.5, PostgreSQL 14
+This project was developed with: Python 3.8, Django 4.0.7, PostgreSQL 14
 
 Uses libraries: Django Rest Framework, DRF-Spectacular, DRF-Nested-Routers, SimpleJWT, DRF-YASG & Swagger, Django-Environ, Django-Filter, Django-Injector, Django-Prometheus.
 
