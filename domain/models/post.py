@@ -1,12 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django_prometheus.models import ExportModelOperationsMixin
 
 from domain.core.models import BasePKModel
 
 User = get_user_model()
 
 
-class Post(BasePKModel):
+class Post(ExportModelOperationsMixin('post'), BasePKModel):
     title = models.CharField(max_length=255, blank=False)
     content = models.TextField(blank=True)
     creator = models.ForeignKey(
