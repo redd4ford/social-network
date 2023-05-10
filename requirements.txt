@@ -10,7 +10,7 @@ drf-spectacular==0.22.1
 drf-yasg==1.20.0
 django-injector==0.3.1
 pytz==2022.1
-sqlparse==0.4.2
+sqlparse==0.4.4
 tzdata==2022.1
 psycopg2-binary==2.9.3
 django-prometheus==2.2.0
